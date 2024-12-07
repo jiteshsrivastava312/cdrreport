@@ -50,7 +50,7 @@ LEFT JOIN ct_skill s ON c.skillid = s.id
 LEFT JOIN ct_campaign_queue q ON c.qid = q.id
 LEFT JOIN ct_servertrunkgroups tg ON c.trunkid = tg.id
 LEFT JOIN ct_dispositions d ON c.dispoid = d.id
-LEFT JOIN ct_ct_list d ON l.id = l.id
+LEFT JOIN ct_list d ON l.id = l.id
 WHERE recordentrydate >= CURRENT_DATE - INTERVAL '1 DAY';
 """
 
