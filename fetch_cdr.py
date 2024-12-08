@@ -6,7 +6,7 @@ import datetime
 
 # PostgreSQL connection details
 db_config = {
-    "host": "192.168.160.229",
+    "host": "192.168.160.33",
     "database": "verve",
     "user": "postgres",
     "password": "Avis!123",
