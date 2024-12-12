@@ -18,7 +18,6 @@ query = """
 SELECT
     camp.name AS campaign,
     u.name AS agent,
-    '' AS agentfullname,
     s.name AS skill,
     callstartdate,
     recordentrydate AS callenddate,
