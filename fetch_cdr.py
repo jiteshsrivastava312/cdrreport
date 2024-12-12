@@ -15,34 +15,33 @@ db_config = {
 
 # Query to fetch the report with names instead of IDs
 query = """
-SELECT 
-    recordentrydate, 
+SELECT
     camp.name AS campaign,
     u.name AS agent,
     '' AS agentfullname,
     s.name AS skill,
-    callstartdate, 
-    calltype, 
-    accountcode, 
+    callstartdate,
+    recordentrydate AS callenddate,
+    calltype,
+    accountcode,
     q.name AS qname,
     l.name AS listname,
-    uniqueid, 
-    phonenumber AS phone_number, 
-    callduration AS call_duration, 
-    talkduration AS talk_duration, 
-    holdduration AS hold_duration, 
-    acwduration AS acw_duration, 
-    queueduration AS queue_duration, 
-    setupduration AS setup_duration, 
-    0 AS preview_duration, 
-    agentringduration AS agentring_duration, 
+    uniqueid,
+    phonenumber AS phone_number,
+    TO_CHAR(make_interval(secs => callduration), 'HH24:MI:SS') AS call_duration,
+    TO_CHAR(make_interval(secs => talkduration), 'HH24:MI:SS') AS talk_duration,
+    TO_CHAR(make_interval(secs => holdduration), 'HH24:MI:SS') AS hold_duration,
+    TO_CHAR(make_interval(secs => acwduration), 'HH24:MI:SS') AS acw_duration,
+    TO_CHAR(make_interval(secs => queueduration), 'HH24:MI:SS') AS queue_duration,
+    TO_CHAR(make_interval(secs => setupduration), 'HH24:MI:SS') AS setup_duration,
+    TO_CHAR(make_interval(secs => agentringduration), 'HH24:MI:SS') AS agentring_duration,
     tg.name AS trunkgroup,
-    dnis, 
-    '' AS dnis_name,
-    callstatus, 
-    disconnby AS disconnectedby, 
-    dispoid AS disposition_type,
-    d.name AS disposition
+    dnis,
+    callstatus,
+    disconnby AS disconnectedby,
+    COALESCE(d.type, c.dispoid::TEXT) AS disposition_type,
+    COALESCE(d.name, c.dispoid::TEXT) AS disposition,
+    hangupcause
 FROM cr_conn_cdr c
 LEFT JOIN ct_campaign camp ON c.campid = camp.id
 LEFT JOIN ct_user u ON c.agentid = u.id
@@ -52,6 +51,7 @@ LEFT JOIN ct_servertrunkgroups tg ON c.trunkid = tg.id
 LEFT JOIN ct_dispositions d ON c.dispoid = d.id
 LEFT JOIN ct_list l ON c.listid = l.listid
 WHERE recordentrydate >= CURRENT_DATE - INTERVAL '1 DAY';
+
 """
 
 try:
