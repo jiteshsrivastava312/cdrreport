@@ -17,7 +17,7 @@ query = """
 SELECT * 
 FROM nr_conn_cdr 
 WHERE recordentrydate >= '2021-01-01' 
-AND recordentrydate <= '2021-01-30';
+AND recordentrydate <= '2021-06-30';
 """
 try:
     # Connect to PostgreSQL and fetch data
