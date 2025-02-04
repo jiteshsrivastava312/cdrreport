@@ -16,8 +16,8 @@ db_config = {
 query = """
 SELECT * 
 FROM nr_conn_cdr 
-WHERE recordentrydate >= '2021-01-05' 
-AND recordentrydate <= '2021-01-08';
+WHERE recordentrydate >= '2021-02-01' 
+AND recordentrydate <= '2021-02-28';
 """
 try:
     # Connect to PostgreSQL and fetch data
