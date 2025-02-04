@@ -40,7 +40,7 @@ SELECT
     COALESCE(d.type, c.dispoid::TEXT) AS disposition_type,
     COALESCE(d.name, c.dispoid::TEXT) AS disposition,
     hangupcause
-FROM cr_conn_cdr c
+FROM nr_conn_cdr c
 LEFT JOIN ct_campaign camp ON c.campid = camp.id
 LEFT JOIN ct_user u ON c.agentid = u.id
 LEFT JOIN ct_skill s ON c.skillid = s.id
