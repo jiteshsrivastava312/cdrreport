@@ -1,4 +1,3 @@
-# Query to fetch the report
 import psycopg2
 import pandas as pd
 from io import StringIO
@@ -6,11 +5,11 @@ import datetime
 
 # PostgreSQL connection details
 db_config = {
-    "host": "192.168.160.229",
-    "database": "verve",
+    "host": "192.168.220.29",
+    "database": "nguccreports",
     "user": "postgres",
     "password": "Avis!123",
-    "port": "5433"
+    "port": "5432"
 }
 
 # Query to fetch the report with names instead of IDs
@@ -49,7 +48,7 @@ LEFT JOIN ct_campaign_queue q ON c.qid = q.id
 LEFT JOIN ct_servertrunkgroups tg ON c.trunkid = tg.id
 LEFT JOIN ct_dispositions d ON c.dispoid = d.id
 LEFT JOIN ct_list l ON c.listid = l.listid
-WHERE recordentrydate >= CURRENT_DATE - INTERVAL '1 DAY';
+WHERE recordentrydate >= '2020-01-01' AND recordentrydate <= '2020-01-30';
 
 """
 
@@ -66,7 +65,7 @@ try:
 
     # Create the dynamic filename with current date and time
     current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    file_path = f"/tmp/cdr_report_{current_time}.csv"
+    file_path = f"/tmp/cdr_report_2020-01-01_to_2020-01-30_{current_time}.csv"
 
     # Save the CSV file locally in /tmp/
     with open(file_path, 'w') as f:
@@ -76,7 +75,3 @@ try:
 
 except Exception as e:
     print(f"Error: {e}")
-
-
-
-
