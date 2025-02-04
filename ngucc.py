@@ -17,7 +17,7 @@ query = """
 SELECT * 
 FROM nr_conn_cdr 
 WHERE recordentrydate >= '2021-01-01' 
-AND recordentrydate <= '2021-01-30';
+AND recordentrydate <= '2021-01-31';
 """
 try:
     # Connect to PostgreSQL and fetch data
@@ -32,7 +32,7 @@ try:
 
     # Create the dynamic filename with current date and time
     current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    file_path = f"/tmp/cdr_report_30_{current_time}.csv"
+    file_path = f"/tmp/cdr_report_20210101_TO_20210131__{current_time}.csv"
 
     # Save the CSV file locally in /tmp/
     with open(file_path, 'w') as f:
