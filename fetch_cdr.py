@@ -48,7 +48,7 @@ LEFT JOIN ct_campaign_queue q ON c.qid = q.id
 LEFT JOIN ct_servertrunkgroups tg ON c.trunkid = tg.id
 LEFT JOIN ct_dispositions d ON c.dispoid = d.id
 LEFT JOIN ct_list l ON c.listid = l.listid
-WHERE recordentrydate >= '2020-01-01' AND recordentrydate <= '2020-01-30';
+WHERE recordentrydate >= '2019-01-01' AND recordentrydate <= '2019-01-30';
 
 """
 
